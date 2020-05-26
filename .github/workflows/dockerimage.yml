@@ -46,8 +46,6 @@ jobs:
       run: go mod download
     
     - name: Run GoReleaser
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: curl -sL https://git.io/goreleaser | bash
 
     - name: Install
@@ -66,5 +64,5 @@ jobs:
     - name: Docker Plugin
       id: docker-plugin
       run: |
-        make docker-plugin
-        make docker-plugin-push
+        make docker-plugin PLUGIN_USER=${{ secrets.DOCKER_USER }}
+        make docker-plugin-push PLUGIN_USER=${{ secrets.DOCKER_USER }}
