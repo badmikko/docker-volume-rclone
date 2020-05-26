@@ -44,9 +44,6 @@ jobs:
       
     - name: Run go mod download
       run: go mod download
-    
-    - name: Run GoReleaser
-      run: curl -sL https://git.io/goreleaser | bash
 
     - name: Install
       id: install
