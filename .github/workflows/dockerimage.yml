@@ -41,6 +41,14 @@ jobs:
       with:
         go-version: 1.13
       id: go
+      
+    - name: Run go mod download
+      run: go mod download
+    
+    - name: Run GoReleaser
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: curl -sL https://git.io/goreleaser | bash
 
     - name: Install
       id: install
