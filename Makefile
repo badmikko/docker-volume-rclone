@@ -89,6 +89,11 @@ release: clean deps format
 	@echo -e "$(OK_COLOR)==> Trying to compress binary ...$(NO_COLOR)"
 	@upx --brute  build/${APP_NAME}-linux-armv6 || upx-ucl --brute  build/${APP_NAME}-linux-armv6 || echo -e "$(WARN_COLOR)==> No tools found to compress binary.$(NO_COLOR)"
 
+	@echo -e "$(OK_COLOR)==> Building for linux arm64 ...$(NO_COLOR)"
+	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 GOARM=6 go build -o build/${APP_NAME}-linux-arm64 -ldflags "$(LDFLAGS)"
+	@echo -e "$(OK_COLOR)==> Trying to compress binary ...$(NO_COLOR)"
+	@upx --brute  build/${APP_NAME}-linux-arm64 || upx-ucl --brute  build/${APP_NAME}-linux-arm64 || echo -e "$(WARN_COLOR)==> No tools found to compress binary.$(NO_COLOR)"
+
 	@echo -e "$(OK_COLOR)==> Building for darwin32 ...$(NO_COLOR)"
 	CGO_ENABLED=0 GOOS=darwin GOARCH=386 go build -o build/${APP_NAME}-darwin-386 -ldflags "$(LDFLAGS)"
 	@echo -e "$(OK_COLOR)==> Trying to compress binary ...$(NO_COLOR)"
