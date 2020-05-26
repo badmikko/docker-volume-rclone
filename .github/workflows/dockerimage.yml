@@ -36,17 +36,11 @@ jobs:
           echo "::set-output name=BUILD_BASE::${BUILD_BASE}" 
           echo "BUILD_BASE: ${BUILD_BASE}, GITHUB_REF: $GITHUB_REF, GITHUB_SHA: $GITHUB_SHA"
 
-
-    - name: Build Base Image
-      if: steps.precheck.outputs.BUILD_BASE > 0
-      run: |
-        docker buildx build \
-          --platform linux/amd64,linux/arm64 \
-          --output "type=image,push=true" \
-          -t ${{ secrets.DOCKER_USER }}/browserless-base:latest \
-          -f ./base/Dockerfile \
-          ./base/
-
+    - name: Set up Go 1.13
+      uses: actions/setup-go@v1
+      with:
+        go-version: 1.13
+      id: go
 
     - name: Install
       id: install
